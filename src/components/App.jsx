@@ -11,21 +11,33 @@ export default function App() {
     filter: '',
     name: '',
     number: '',
-    divHeight: 300,
+    divHeight: 0,
   });
 
   useEffect(() => {
     const storedContacts = localStorage.getItem('contacts');
     if (storedContacts) {
+      const parsedContacts = JSON.parse(storedContacts);
+      if (parsedContacts.length !== 0) {
+        console.log(parsedContacts);
+        setState(prevState => ({
+          ...prevState,
+          contacts: parsedContacts,
+          divHeight: parsedContacts.length * 60 + 60,
+        }));
+      } else {
+        setState(prevState => ({
+          ...prevState,
+          contacts: parsedContacts,
+          divHeight: 60,
+        }));
+      }
+    } else {
       setState(prevState => ({
         ...prevState,
-        contacts: JSON.parse(storedContacts),
+        contacts: [],
+        divHeight: 60,
       }));
-    } else {
-      setState({
-        contacts: JSON.parse(storedContacts),
-        divHeight: this.contacts.length * 60,
-      });
     }
   }, []);
 
@@ -44,7 +56,7 @@ export default function App() {
       setState(prevState => ({
         ...prevState,
         contacts: [...prevState.contacts, newContact],
-        divHeight: state.divHeight + 60,
+        divHeight: prevState.divHeight + 60,
       }));
     }
   };
