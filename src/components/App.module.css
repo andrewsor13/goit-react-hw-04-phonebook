@@ -1,0 +1,21 @@
+.phonebook {
+  border: 1px solid black;
+  padding: 10px;
+  width: 300px;
+  box-shadow: 1px 1px 1px 1px #000000;
+
+}
+
+.contacts {
+  border: 1px solid black;
+  padding: 10px;
+  width: 300px;
+  height: 300px;
+  box-shadow: 1px 1px 1px 1px #000000;
+
+}
+
+.phonebook_title,
+.contacts_title {
+  text-align: center;
+}
