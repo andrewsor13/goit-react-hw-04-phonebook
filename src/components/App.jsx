@@ -22,7 +22,10 @@ export default function App() {
         contacts: JSON.parse(storedContacts),
       }));
     } else {
-      setState({ contacts: JSON.parse(storedContacts) });
+      setState({
+        contacts: JSON.parse(storedContacts),
+        divHeight: this.contacts.length * 60,
+      });
     }
   }, []);
 
