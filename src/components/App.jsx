@@ -14,7 +14,7 @@ export default function App() {
     divHeight: 80,
   });
 
-  useEffect(() => {
+  const getLocalStorageData = () => {
     const storedContacts = localStorage.getItem('contacts');
     if (storedContacts) {
       const parsedContacts = JSON.parse(storedContacts);
@@ -38,7 +38,9 @@ export default function App() {
         divHeight: 80,
       }));
     }
-  }, []);
+  };
+
+  useEffect(getLocalStorageData, []);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(state.contacts));
