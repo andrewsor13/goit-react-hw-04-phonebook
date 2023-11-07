@@ -18,6 +18,17 @@
   align-items: center;
 }
 
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field__error {
+  color: red;
+  font-size: 12px;
+}
+
 .button {
   border: 2px solid black;
   border-radius: 10px;
@@ -30,5 +41,7 @@
 }
 
 .button:hover {
-  background-color: cyan;
+  background-color: #92b6ff;
+  color: #ffffff;
+  font-weight: bold;
 }

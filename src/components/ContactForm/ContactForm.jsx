@@ -42,7 +42,7 @@ export default function ContactForm({ onSubmit }) {
     >
       {({ isSubmitting, errors, touched }) => (
         <Form className={styles.form_container}>
-          <div>
+          <div className={styles.fieldContainer}>
             <h3>Name</h3>
             <Field
               type="text"
@@ -51,10 +51,10 @@ export default function ContactForm({ onSubmit }) {
               className={styles.form_input}
             />
             {errors.name && touched.name && (
-              <div style={{ color: 'red' }}>{errors.name}</div>
+              <div className={styles.field__error}>{errors.name}</div>
             )}
           </div>
-          <div>
+          <div className={styles.fieldContainer}>
             <h3>Number</h3>
             <Field
               type="text"
@@ -63,7 +63,7 @@ export default function ContactForm({ onSubmit }) {
               className={styles.form_input}
             />
             {errors.number && touched.number && (
-              <div style={{ color: 'red' }}>{errors.number}</div>
+              <div className={styles.field__error}>{errors.number}</div>
             )}
           </div>
           <button

@@ -19,7 +19,6 @@ export default function App() {
     if (storedContacts) {
       const parsedContacts = JSON.parse(storedContacts);
       if (parsedContacts.length !== 0) {
-        console.log(parsedContacts);
         setState(prevState => ({
           ...prevState,
           contacts: parsedContacts,
@@ -29,7 +28,7 @@ export default function App() {
         setState(prevState => ({
           ...prevState,
           contacts: parsedContacts,
-          divHeight: 60,
+          divHeight: 80,
         }));
       }
     } else {
@@ -98,4 +97,3 @@ export default function App() {
     </div>
   );
 }
-// * end Apps
