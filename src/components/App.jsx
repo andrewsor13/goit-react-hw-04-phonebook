@@ -22,7 +22,7 @@ export default function App() {
         setState(prevState => ({
           ...prevState,
           contacts: parsedContacts,
-          divHeight: parsedContacts.length * 60 + 60,
+          divHeight: parsedContacts.length * 60 + 80,
         }));
       } else {
         setState(prevState => ({
@@ -35,7 +35,7 @@ export default function App() {
       setState(prevState => ({
         ...prevState,
         contacts: [],
-        divHeight: 60,
+        divHeight: 80,
       }));
     }
   }, []);
