@@ -3,74 +3,48 @@ import ContactForm from '../components/ContactForm/ContactForm';
 import ContactList from '../components/ContactList/ContactList';
 import Filter from '../components/Filter/Filter';
 import styles from './App.module.css';
+import { nanoid } from 'nanoid';
 import '../index.css';
 
+const phoneContacts = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+];
+
 export default function App() {
-  const [state, setState] = useState({
-    contacts: [],
-    filter: '',
-    name: '',
-    number: '',
-    divHeight: 80,
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('contacts')) ?? phoneContacts;
   });
+  const [filter, setFilter] = useState('');
 
-  const getLocalStorageData = () => {
-    const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      const parsedContacts = JSON.parse(storedContacts);
-      if (parsedContacts.length !== 0) {
-        setState(prevState => ({
-          ...prevState,
-          contacts: parsedContacts,
-          divHeight: parsedContacts.length * 60 + 80,
-        }));
-      } else {
-        setState(prevState => ({
-          ...prevState,
-          contacts: parsedContacts,
-          divHeight: 80,
-        }));
-      }
-    } else {
-      setState(prevState => ({
-        ...prevState,
-        contacts: [],
-        divHeight: 80,
-      }));
-    }
+  const changeFilter = event => {
+    setFilter(event.target.value.trim());
   };
-
-  useEffect(getLocalStorageData, []);
-
   useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(state.contacts));
-  }, [state.contacts]);
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const handleAddContact = newContact => {
-    const isNameAlreadyExist = state.contacts.some(
+    const isNameAlreadyExist = contacts.some(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
 
     if (isNameAlreadyExist) {
       alert(`Contact with the name '${newContact.name}' already exists.`);
     } else {
-      setState(prevState => ({
-        ...prevState,
-        contacts: [...prevState.contacts, newContact],
-        divHeight: prevState.divHeight + 60,
-      }));
+      setContacts(prevContacts => [
+        ...prevContacts,
+        { id: nanoid(), ...newContact },
+      ]);
     }
   };
 
   const handleDeleteContact = contactId => {
-    const updatedContacts = state.contacts.filter(
-      contact => contact.id !== contactId
+    setContacts(prevContacts =>
+      prevContacts.filter(contact => contact.id !== contactId)
     );
-    setState({
-      ...state,
-      contacts: updatedContacts,
-      divHeight: state.divHeight - 60,
-    });
   };
 
   return (
@@ -80,19 +54,13 @@ export default function App() {
         <ContactForm onSubmit={handleAddContact} />
       </div>
 
-      <div
-        className={styles.contacts}
-        style={{ height: `${state.divHeight}px` }}
-      >
+      <div className={styles.contacts}>
         <h2 className={styles.contacts_title}>Contacts</h2>
-        <Filter
-          value={state.filter}
-          onChange={value => setState({ ...state, filter: value })}
-        />
+        <Filter value={filter} onChange={changeFilter} />
 
         <ContactList
-          contacts={state.contacts}
-          filter={state.filter}
+          contacts={contacts}
+          filter={filter}
           onDeleteContact={handleDeleteContact}
         />
       </div>

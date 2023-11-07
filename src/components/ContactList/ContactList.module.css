@@ -14,17 +14,15 @@
   width: 50px;
   background-color: #4681f4;
   box-shadow: 1px 1px #000000;
-
+  cursor: pointer;
 }
 
 .button:hover {
   background-color: cyan;
-
 }
 
 .contact {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
 }
