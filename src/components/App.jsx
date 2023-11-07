@@ -11,7 +11,7 @@ export default function App() {
     filter: '',
     name: '',
     number: '',
-    divHeight: 0,
+    divHeight: 80,
   });
 
   useEffect(() => {
